@@ -73,41 +73,60 @@ const LogIn = () => {
 
 
 
-    const login = (req, res) => {
-        console.log("calling")
+    const login = async (req, res) => {
         let loginData = {
             userName: "string",
             password: "string"
         }
         // const request = new Request('http://192.168.0.113/api/auth/authenticate', { method: 'POST', body: '{"userName": "string","password": "string"}' });         fetch(request)
-
-
-        fetch('http://192.168.0.113/api/Auth/authenticate', {
-            //https://localhost:7273/swagger/index.html, http://localhost:9501/api/Auth/authenticate, http://192.168.0.113:9501/api/Auth/authenticate
+        //GET METHOD
+        // try {
+        console.log("calling login");
+        // fetch('https://gorest.co.in/public/v2/users', {
+        fetch('http://localhost:9501/api/v1/authenticate/', {
+            // http://localhost:9501/api/v1/authenticate //https://localhost:7273/swagger/index.html, http://localhost:9501/api/Auth/authenticate, http://192.168.0.113:9501/api/Auth/authenticate
             method: 'POST',
-            credentials: 'include',
+            // credentials: 'include',
+            // mode: 'no-cors',
+            // mode: "cors",
             headers: {
                 // 'Accept': 'application/json',
-                'Accept': "*/*",
+                // 'Access-Control-Allow-Origin': '*',
+                // 'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+                'Accept': '*/*',
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(loginData)
             // body: loginData
         }).then((response) => {
-            console.log("then")
-            response.json()
+            console.log("then", response)
+            if (response.status === 200) {
+                return response.json();
+            }
+            else
+                Promise.reject();
         }).then((json) => {
             console.log("fetch response", json)
-            setData(json)
-        }).catch((error) => console.log('fetch error', error))
+            // return setData(json)
+            return json;
+        }).catch((error) => {
+            // console.log('fetch error', error)
+            console.log('There has been a problem with your fetch operation: ' + error);
+            // ADD THIS THROW error
+            throw error;
+        }
+        )
         // .finally(() => setLoading(false));
+        // } catch (error) {
+        //     console.error(error);
+        // }
     }
 
 
     const confirmNLogin = () => {
-        confirmCode().then(async () => {
+        confirmCode().then(() => {
             console.log('loggin in');
-            await login();
+            login();
         }).catch((error) => console.error('confirmNLogin error', error.message))
     }
 

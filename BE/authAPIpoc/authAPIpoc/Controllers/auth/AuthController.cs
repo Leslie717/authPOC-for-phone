@@ -1,6 +1,7 @@
 ﻿using authAPIpoc.Models;
 using authAPIpoc.Services;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Serilog;
 
@@ -8,6 +9,8 @@ using Serilog;
 
 namespace authAPIpoc.Controllers.auth
 {
+    [EnableCors("MyPolicy")]
+    //[ApiVersion(CONSTANTS.API_VERSION_1)]
     //[Route("api/[controller]")]
     [ApiController]
     [AllowAnonymous]

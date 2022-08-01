@@ -59,8 +59,10 @@
             public static class USER
             {
                 public const string AUTHENTICATION_POST = @"api/[Controller]/authenticate";
+                //public const string AUTHENTICATION_POST = @"api/authenticate";
                 public const string AUTHENTICATION_RESET_POST = @"api/v{version:apiVersion}/[Controller]/reset";
                 public const string REGISTRATION_POST = @"api/[Controller]/register";
+                //public const string REGISTRATION_POST = @"api/register";
             }
 
         }
